@@ -94,11 +94,11 @@ class PhalconMCPServer:
 
     def phalcon_create_scaffold(self, name: str, schema: str = None, template: str = None, force: bool = False) -> Dict[str, Any]:
         """创建完整的 CRUD 脚手架"""
-        cmd = ['phalcon', 'create-scaffold', name]
+        cmd = ['phalcon', 'scaffold', name]
         if schema:
             cmd.extend(['--schema', schema])
         if template:
-            cmd.extend(['--template', template])
+            cmd.extend(['--template-engine', template])
         if force:
             cmd.append('--force')
         try:
@@ -110,7 +110,7 @@ class PhalconMCPServer:
     def phalcon_create_webtools(self) -> Dict[str, Any]:
         """初始化 Phalcon Webtools"""
         try:
-            result = subprocess.run(['phalcon', 'create-webtools'], capture_output=True, text=True)
+            result = subprocess.run(['phalcon', 'webtools'], capture_output=True, text=True)
             return {"status": "success", "output": result.stdout}
         except Exception as e:
             return {"status": "error", "message": str(e)}
@@ -131,7 +131,7 @@ class PhalconMCPServer:
     def phalcon_list_commands(self) -> Dict[str, Any]:
         """列出所有可用的 Phalcon 命令"""
         try:
-            result = subprocess.run(['phalcon', 'list'], capture_output=True, text=True)
+            result = subprocess.run(['phalcon', 'commands'], capture_output=True, text=True)
             return {"status": "success", "output": result.stdout}
         except Exception as e:
             return {"status": "error", "message": str(e)}
